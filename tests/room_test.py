@@ -50,6 +50,12 @@ class TestRoom(unittest.TestCase):
         expected = 3
         self.assertEqual(expected, actual)
     
+    def test_room_has_favourite_song(self):
+        self.room.add_song(self.song)
+        actual = self.guest.cheer(self.room.playlist)
+        expected = "Whoo!"
+        self.assertEqual(expected, actual)
+
     
 
     

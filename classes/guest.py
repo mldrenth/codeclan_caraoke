@@ -6,3 +6,8 @@ class Guest:
     
     def perform_song(self, song):
         return f"I am singing {song.name} by {song.artist}!"
+    
+    def cheer(self, playlist):
+        for song in playlist:
+            if song.name == self.favourite_song:
+                return "Whoo!"
