@@ -9,7 +9,11 @@ class Room:
         self.playlist.append(song)
 
     def check_in_guest(self, guest):
-        self.list_of_guests.append(guest)
+        if self.find_space():
+            self.list_of_guests.append(guest)
     
     def check_out_guest(self, guest):
         self.list_of_guests.remove(guest)
+    
+    def find_space(self):
+        return len(self.list_of_guests) < self.size
