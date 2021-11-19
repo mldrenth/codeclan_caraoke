@@ -11,3 +11,7 @@ class Guest:
         for song in playlist:
             if song.name == self.favourite_song:
                 return "Whoo!"
+    
+    def pay_fee(self, fee):
+        self.wallet -= fee
+    

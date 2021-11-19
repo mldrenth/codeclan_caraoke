@@ -5,7 +5,7 @@ from classes.guest import Guest
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
-        self.room = Room("Hip Hop", 3)
+        self.room = Room("Hip Hop", 3, 200, 20)
         self.song = Song("Heart Don't Stand a Chance", "Anderson .Paak")
         self.guest = Guest("Frodo", "Heart Don't Stand a Chance", 100)
         self.guest_2 = Guest("Sam", "Magic", 10)
@@ -20,6 +20,16 @@ class TestRoom(unittest.TestCase):
     def test_room_has_size(self):
         actual = self.room.size
         expected = 3
+        self.assertEqual(expected, actual)
+    
+    def test_room_has_till(self):
+        actual = self.room.till
+        expected = 200
+        self.assertEqual(expected, actual)
+    
+    def test_room_has_fee(self):
+        actual = self.room.fee
+        expected = 20
         self.assertEqual(expected, actual)
     
     def test_room_can_add_song_to_playlist(self):
@@ -50,11 +60,32 @@ class TestRoom(unittest.TestCase):
         expected = 3
         self.assertEqual(expected, actual)
     
-    def test_room_has_favourite_song(self):
+    def test_room__has_favourite_song(self):
         self.room.add_song(self.song)
         actual = self.guest.cheer(self.room.playlist)
         expected = "Whoo!"
         self.assertEqual(expected, actual)
+    
+    def test_room__does_not_have_favourite_song(self):
+        self.room.add_song(self.song)
+        actual = self.guest_2.cheer(self.room.playlist)
+        expected = None
+        self.assertEqual(expected, actual)
+    
+    def test_room__guest_has_enough_money(self):
+        self.room.add_song(self.song)
+        self.room.check_in_guest(self.guest)
+        self.assertEqual(220, self.room.till)
+        self.assertEqual(80, self.guest.wallet)
+        self.assertEqual(1, len(self.room.list_of_guests))
+    
+    def test_room__guest_not_enough_money(self):
+        self.room.add_song(self.song)
+        self.room.check_in_guest(self.guest_2)
+        self.assertEqual(200, self.room.till)
+        self.assertEqual(10, self.guest_2.wallet)
+        self.assertEqual(0, len(self.room.list_of_guests))
+        
 
     
 
