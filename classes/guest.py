@@ -14,4 +14,3 @@ class Guest:
     
     def pay_fee(self, fee):
         self.wallet -= fee
-    

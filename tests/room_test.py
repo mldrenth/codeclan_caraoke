@@ -40,34 +40,44 @@ class TestRoom(unittest.TestCase):
     
     def test_room_can_check_in_guest(self):
         self.room.check_in_guest(self.guest)
-        actual = len(self.room.list_of_guests)
+        actual = len(self.room.guests)
         expected = 1
         self.assertEqual(expected,actual)
     
     def test_room_can_check_out_guest(self):
+        #given
         self.room.check_in_guest(self.guest)
+        #when
         self.room.check_out_guest(self.guest)
-        actual = len(self.room.list_of_guests)
+        #then
+        actual = len(self.room.guests)
         expected = 0
         self.assertEqual(expected,actual)
     
     def test_room_is_full(self):
+        #given
         self.room.check_in_guest(self.guest)
         self.room.check_in_guest(self.guest_2)
         self.room.check_in_guest(self.guest_3)
+        #when
         self.room.check_in_guest(self.guest_4)
-        actual = len(self.room.list_of_guests)
+        #then
+        actual = len(self.room.guests)
         expected = 3
         self.assertEqual(expected, actual)
     
     def test_room__has_favourite_song(self):
+        #given
         self.room.add_song(self.song)
+        #when
         actual = self.guest.cheer(self.room.playlist)
+        #then
         expected = "Whoo!"
         self.assertEqual(expected, actual)
     
     def test_room__does_not_have_favourite_song(self):
         self.room.add_song(self.song)
+
         actual = self.guest_2.cheer(self.room.playlist)
         expected = None
         self.assertEqual(expected, actual)
@@ -77,14 +87,14 @@ class TestRoom(unittest.TestCase):
         self.room.check_in_guest(self.guest)
         self.assertEqual(220, self.room.till)
         self.assertEqual(80, self.guest.wallet)
-        self.assertEqual(1, len(self.room.list_of_guests))
+        self.assertEqual(1, len(self.room.guests))
     
     def test_room__guest_not_enough_money(self):
         self.room.add_song(self.song)
         self.room.check_in_guest(self.guest_2)
         self.assertEqual(200, self.room.till)
         self.assertEqual(10, self.guest_2.wallet)
-        self.assertEqual(0, len(self.room.list_of_guests))
+        self.assertEqual(0, len(self.room.guests))
         
 
     
